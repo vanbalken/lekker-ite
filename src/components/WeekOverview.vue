@@ -42,25 +42,23 @@ function onInput(day, event) {
 
 <style scoped>
 .mealplanner {
-  max-width: 500px;
-  margin: 0 auto;
-  background: #ffffff;
+  background: white;
+  padding: 1rem;
   border-radius: 12px;
-  padding: 0.5rem 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .week {
   list-style: none;
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
 
 .day {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 0;
   border-bottom: 1px solid #eee;
 }
 
@@ -74,31 +72,26 @@ function onInput(day, event) {
 }
 
 .day-name {
-  font-weight: 600;
-  text-transform: capitalize;
+  font-weight: bold;
+  color: #333;
 }
 
 .day-date {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: #666;
 }
 
-.day-right {
-  color: #bbb;
-  font-size: 0.9rem;
-}
-
 .meal-input {
-  width: 100%;
-  max-width: 180px;
-  padding: 0.4rem 0.5rem;
-  border-radius: 6px;
-  border: 1px solid #ddd;
-  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  width: 200px;
+  transition: border 0.2s;
 }
 
 .meal-input:focus {
+  border-color: #0070f3;
   outline: none;
-  border-color: #999;
 }
 </style>

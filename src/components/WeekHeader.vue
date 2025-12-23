@@ -24,28 +24,33 @@ const emit = defineEmits(['prev', 'next']);
 <style scoped>
 .week-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  max-width: 500px;
-  margin: 0 auto 0.75rem;
-  padding: 0.5rem 0.25rem;
+  align-items: center;
+  background: white;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem;
 }
 
 .week-label {
-  font-weight: 600;
-  font-size: 1rem;
-}
-
-.nav {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  padding: 0.25rem 0.5rem;
-  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2rem;
   color: #333;
 }
 
-.nav:active {
-  transform: scale(0.95);
+.nav {
+  background: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.nav:hover {
+  background: #005ac1;
 }
 </style>
