@@ -1,35 +1,16 @@
 <script setup>
-import { computed } from 'vue';
-import dayjs from 'dayjs';
-import isoWeek from 'dayjs/plugin/isoWeek';
-import 'dayjs/locale/nl';
-
-dayjs.extend(isoWeek);
-dayjs.locale('nl');
-
-const props = defineProps({
-  weekStart: {
-    type: Object,
+defineProps({
+  days: {
+    type: Array,
     required: true,
   },
-});
-
-const weekDays = computed(() => {
-  return Array.from({ length: 7 }).map((_, i) => {
-    const d = props.weekStart.add(i, 'day');
-    return {
-      date: d.format('YYYY-MM-DD'),
-      label: d.format('dddd'),
-      display: d.format('DD MMM'),
-    };
-  });
 });
 </script>
 
 <template>
   <section class="mealplanner">
     <ul class="week">
-      <li v-for="day in weekDays" :key="day.date" class="day">
+      <li v-for="day in days" :key="day.date" class="day">
         <div class="day-left">
           <div class="day-name">{{ day.label }}</div>
           <div class="day-date">{{ day.display }}</div>

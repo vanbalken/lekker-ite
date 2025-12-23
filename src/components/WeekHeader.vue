@@ -1,25 +1,12 @@
 <script setup>
-import { computed } from 'vue';
-import dayjs from 'dayjs';
-import 'dayjs/locale/nl';
-
-dayjs.locale('nl');
-
-const props = defineProps({
-  weekStart: {
-    type: Object,
+defineProps({
+  label: {
+    type: String,
     required: true,
   },
 });
 
 const emit = defineEmits(['prev', 'next']);
-
-const weekLabel = computed(() => {
-  const start = props.weekStart;
-  const end = start.add(6, 'day');
-
-  return `${start.format('D MMM')} – ${end.format('D MMM YYYY')}`;
-});
 </script>
 
 <template>
@@ -27,7 +14,7 @@ const weekLabel = computed(() => {
     <button class="nav" @click="emit('prev')" aria-label="Vorige week">‹</button>
 
     <div class="week-label">
-      {{ weekLabel }}
+      {{ label }}
     </div>
 
     <button class="nav" @click="emit('next')" aria-label="Volgende week">›</button>
