@@ -1,31 +1,102 @@
 <script setup>
-import { reactive } from 'vue';
+import { reactive, watch } from 'vue';
 import { useAuth } from '@/composables/useAuth';
 import { useWeek } from '@/composables/useWeek';
+import { supabase } from '@/lib/supabase';
 
 import LoginForm from '@/components/LoginForm.vue';
 import WeekHeader from '@/components/WeekHeader.vue';
 import WeekOverview from '@/components/WeekOverview.vue';
 
+/**
+ * Auth & week state
+ */
 const { session, logout } = useAuth();
-const { weekDays, weekLabel, nextWeek, previousWeek } = useWeek();
+const { weekStart, weekDays, weekLabel, nextWeek, previousWeek } = useWeek();
 
-// key = planned_date (YYYY-MM-DD)
+/**
+ * Meals state
+ * key = planned_date (YYYY-MM-DD)
+ */
 const mealsByDate = reactive({});
 
-function updateMeal(plannedDate, mealTitle) {
-  const title = mealTitle.trim();
+/**
+ * Load meals for active week
+ */
+async function loadMealsForWeek(start, end) {
+  const { data, error } = await supabase
+    .from('meal_plans')
+    .select('*')
+    .gte('planned_date', start)
+    .lte('planned_date', end);
 
-  if (!title) {
-    // lege input → verwijderen uit state
-    delete mealsByDate[plannedDate];
+  if (error) {
+    console.error('Load meals failed:', error.message);
     return;
   }
 
+  // clear reactive object
+  Object.keys(mealsByDate).forEach((k) => delete mealsByDate[k]);
+
+  data?.forEach((m) => {
+    mealsByDate[m.planned_date] = m;
+  });
+}
+
+/**
+ * Watch auth + week changes
+ * → single source of truth
+ */
+watch(
+  [() => session.value, () => weekStart.value],
+  ([sessionValue, start]) => {
+    if (!sessionValue || !start) return;
+
+    const startDate = start.format('YYYY-MM-DD');
+    const endDate = start.add(6, 'day').format('YYYY-MM-DD');
+
+    loadMealsForWeek(startDate, endDate);
+  },
+  { immediate: true },
+);
+
+/**
+ * Local update (input)
+ */
+function updateMealLocal(plannedDate, mealTitle) {
   mealsByDate[plannedDate] = {
     planned_date: plannedDate,
-    meal_title: title,
+    meal_title: mealTitle,
   };
+}
+
+/**
+ * Save to Supabase (blur)
+ */
+async function saveMeal(plannedDate) {
+  const meal = mealsByDate[plannedDate];
+  const title = meal?.meal_title?.trim();
+
+  // empty → delete
+  if (!title) {
+    delete mealsByDate[plannedDate];
+
+    const { error } = await supabase.from('meal_plans').delete().eq('planned_date', plannedDate);
+
+    if (error) console.error(error.message);
+    return;
+  }
+
+  // upsert
+  const { error } = await supabase.from('meal_plans').upsert(
+    {
+      planned_date: plannedDate,
+      meal_title: title,
+    },
+    { onConflict: 'planned_date' },
+  );
+
+  if (error) console.error(error.message);
 }
 </script>
 
@@ -40,7 +111,12 @@ function updateMeal(plannedDate, mealTitle) {
 
       <WeekHeader :label="weekLabel" @prev="previousWeek" @next="nextWeek" />
 
-      <WeekOverview :days="weekDays" :meals-by-date="mealsByDate" @update-meal="updateMeal" />
+      <WeekOverview
+        :days="weekDays"
+        :meals-by-date="mealsByDate"
+        @update-local="updateMealLocal"
+        @save-meal="saveMeal"
+      />
     </template>
   </main>
 </template>
@@ -56,7 +132,6 @@ function updateMeal(plannedDate, mealTitle) {
   border-radius: 12px;
 }
 
-/* Voor grotere schermen iets meer padding */
 @media (min-width: 768px) {
   .app {
     padding: 2rem;

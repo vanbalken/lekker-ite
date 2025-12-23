@@ -10,10 +10,14 @@ defineProps({
   },
 });
 
-const emit = defineEmits(['update-meal']);
+const emit = defineEmits(['update-local', 'save-meal']);
 
-function onInput(day, event) {
-  emit('update-meal', day.date, event.target.value);
+function onInput(date, event) {
+  emit('update-local', date, event.target.value);
+}
+
+function onBlur(date) {
+  emit('save-meal', date);
 }
 </script>
 
@@ -32,7 +36,8 @@ function onInput(day, event) {
             class="meal-input"
             placeholder="Maaltijd"
             :value="mealsByDate[day.date]?.meal_title || ''"
-            @input="onInput(day, $event)"
+            @input="onInput(day.date, $event)"
+            @blur="onBlur(day.date)"
           />
         </div>
       </li>
