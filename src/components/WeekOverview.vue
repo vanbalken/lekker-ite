@@ -4,7 +4,17 @@ defineProps({
     type: Array,
     required: true,
   },
+  mealsByDate: {
+    type: Object,
+    required: true,
+  },
 });
+
+const emit = defineEmits(['update-meal']);
+
+function onInput(day, event) {
+  emit('update-meal', day.date, event.target.value);
+}
 </script>
 
 <template>
@@ -17,7 +27,13 @@ defineProps({
         </div>
 
         <div class="day-right">
-          <span class="meal-placeholder">—</span>
+          <input
+            type="text"
+            class="meal-input"
+            placeholder="Maaltijd"
+            :value="mealsByDate[day.date]?.meal_title || ''"
+            @input="onInput(day, $event)"
+          />
         </div>
       </li>
     </ul>
@@ -72,7 +88,17 @@ defineProps({
   font-size: 0.9rem;
 }
 
-.meal-placeholder {
-  font-style: italic;
+.meal-input {
+  width: 100%;
+  max-width: 180px;
+  padding: 0.4rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 0.9rem;
+}
+
+.meal-input:focus {
+  outline: none;
+  border-color: #999;
 }
 </style>
