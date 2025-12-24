@@ -38,13 +38,20 @@ async function login() {
 </template>
 
 <style scoped>
+/* Card */
 .login-card {
+  width: 100%;
   max-width: 400px;
-  margin: 2rem auto;
   background: white;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 480px) {
+  .login-card {
+    padding: 2rem;
+  }
 }
 
 .login-title {

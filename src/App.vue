@@ -102,9 +102,11 @@ async function saveMeal(plannedDate) {
 
 <template>
   <main class="app">
-    <LoginForm v-if="!session" />
+    <div v-if="!session" class="login-page">
+      <LoginForm />
+    </div>
 
-    <template v-else>
+    <div v-else class="app-content">
       <header class="topbar">
         <button class="logout" @click="logout">Logout</button>
       </header>
@@ -117,23 +119,36 @@ async function saveMeal(plannedDate) {
         @update-local="updateMealLocal"
         @save-meal="saveMeal"
       />
-    </template>
+    </div>
   </main>
 </template>
 
 <style scoped>
+/* Volledige pagina achtergrond */
 .app {
-  width: 100%;
-  max-width: 700px;
-  margin: 1rem auto;
   font-family: system-ui, sans-serif;
+  min-height: 100vh;
   background: #f7f7f7;
+}
+
+/* LOGIN LAYOUT */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center; /* verticaal */
+  justify-content: center; /* horizontaal */
+  padding: 1rem; /* voorkomt afsnijden op mobiel */
+}
+
+/* APP CONTENT */
+.app-content {
+  max-width: 700px;
+  margin: 0 auto;
   padding: 1rem;
-  border-radius: 12px;
 }
 
 @media (min-width: 768px) {
-  .app {
+  .app-content {
     padding: 2rem;
   }
 }
@@ -151,7 +166,6 @@ async function saveMeal(plannedDate) {
   background: #0070f3;
   color: white;
   cursor: pointer;
-  transition: background 0.2s;
 }
 
 .logout:hover {

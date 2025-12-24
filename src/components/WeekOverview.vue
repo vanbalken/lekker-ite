@@ -60,9 +60,9 @@ function onBlur(date) {
 }
 
 .day {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
   padding: 0.75rem 0;
   border-bottom: 1px solid #eee;
 }
@@ -87,16 +87,37 @@ function onBlur(date) {
 }
 
 .meal-input {
-  padding: 0.5rem 1rem;
+  width: 100%;
+  box-sizing: border-box; /* 🔑 voorkomt overlopen */
+  padding: 0.6rem 0.8rem;
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 1rem;
-  width: 200px;
   transition: border 0.2s;
 }
 
 .meal-input:focus {
   border-color: #0070f3;
   outline: none;
+}
+
+/* =========================
+   Desktop layout
+   ========================= */
+@media (min-width: 768px) {
+  .day {
+    grid-template-columns: 160px 1fr;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .day-left {
+    flex-direction: column;
+  }
+
+  .meal-input {
+    max-width: 100%;
+    font-size: 1.05rem;
+  }
 }
 </style>
