@@ -28,5 +28,6 @@
     "prettier": "3.6.2",
     "vite": "^7.2.4",
     "vite-plugin-vue-devtools": "^8.0.5"
-  }
+  },
+  "packageManager": "pnpm@10.26.1"
 }
