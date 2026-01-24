@@ -26,7 +26,7 @@ const mealsByDate = reactive({});
 async function loadMealsForWeek(start, end) {
   const { data, error } = await supabase
     .from('meal_plans')
-    .select('*')
+    .select('id, planned_date, meals(id, title)')
     .gte('planned_date', start)
     .lte('planned_date', end);
 
@@ -74,6 +74,7 @@ function updateMealLocal(plannedDate, mealTitle) {
  * Save to Supabase (blur)
  */
 async function saveMeal(plannedDate) {
+  // TODO implementeren op basis van extra tabel
   const meal = mealsByDate[plannedDate];
   const title = meal?.meal_title?.trim();
 

@@ -35,7 +35,7 @@ function onBlur(date) {
             type="text"
             class="meal-input"
             placeholder="Maaltijd"
-            :value="mealsByDate[day.date]?.meal_title || ''"
+            :value="mealsByDate[day.date]?.meals.title || ''"
             @input="onInput(day.date, $event)"
             @blur="onBlur(day.date)"
           />
