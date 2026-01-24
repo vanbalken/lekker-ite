@@ -42,10 +42,10 @@ async function login() {
 .login-card {
   width: 100%;
   max-width: 400px;
-  background: white;
+  background: #2a2a2a;
   padding: 1.5rem;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 @media (min-width: 480px) {
@@ -58,7 +58,7 @@ async function login() {
   text-align: center;
   margin-bottom: 1.5rem;
   font-size: 1.5rem;
-  color: #333;
+  color: #e0e0e0;
 }
 
 .login-form {
@@ -69,20 +69,26 @@ async function login() {
 
 .login-input {
   padding: 0.75rem 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid #444;
   border-radius: 8px;
   font-size: 1rem;
+  background: #1a1a1a;
+  color: #e0e0e0;
   transition: border 0.2s;
 }
 
+.login-input::placeholder {
+  color: #888;
+}
+
 .login-input:focus {
-  border-color: #0070f3;
+  border-color: #2563eb;
   outline: none;
 }
 
 .login-button {
   padding: 0.75rem 1rem;
-  background: #0070f3;
+  background: #2563eb;
   color: white;
   border: none;
   border-radius: 8px;
@@ -92,11 +98,11 @@ async function login() {
 }
 
 .login-button:hover {
-  background: #005ac1;
+  background: #1d4ed8;
 }
 
 .login-error {
-  color: red;
+  color: #ff6b6b;
   text-align: center;
   font-size: 0.9rem;
 }

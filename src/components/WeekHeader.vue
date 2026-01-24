@@ -26,21 +26,21 @@ const emit = defineEmits(['prev', 'next']);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: white;
+  background: #2a2a2a;
   padding: 1rem;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   margin-bottom: 1rem;
 }
 
 .week-label {
   font-weight: bold;
   font-size: 1.2rem;
-  color: #333;
+  color: #e0e0e0;
 }
 
 .nav {
-  background: #0070f3;
+  background: #2563eb;
   color: white;
   border: none;
   border-radius: 8px;
@@ -51,6 +51,6 @@ const emit = defineEmits(['prev', 'next']);
 }
 
 .nav:hover {
-  background: #005ac1;
+  background: #1d4ed8;
 }
 </style>

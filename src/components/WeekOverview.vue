@@ -47,10 +47,10 @@ function onBlur(date) {
 
 <style scoped>
 .mealplanner {
-  background: white;
+  background: #2a2a2a;
   padding: 1rem;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .week {
@@ -64,7 +64,7 @@ function onBlur(date) {
   grid-template-columns: 1fr;
   gap: 0.5rem;
   padding: 0.75rem 0;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #444;
 }
 
 .day:last-child {
@@ -78,26 +78,32 @@ function onBlur(date) {
 
 .day-name {
   font-weight: bold;
-  color: #333;
+  color: #e0e0e0;
 }
 
 .day-date {
   font-size: 0.9rem;
-  color: #666;
+  color: #888;
 }
 
 .meal-input {
   width: 100%;
   box-sizing: border-box; /* 🔑 voorkomt overlopen */
   padding: 0.6rem 0.8rem;
-  border: 1px solid #ccc;
+  border: 1px solid #444;
   border-radius: 8px;
   font-size: 1rem;
+  background: #1a1a1a;
+  color: #e0e0e0;
   transition: border 0.2s;
 }
 
+.meal-input::placeholder {
+  color: #666;
+}
+
 .meal-input:focus {
-  border-color: #0070f3;
+  border-color: #2563eb;
   outline: none;
 }
 

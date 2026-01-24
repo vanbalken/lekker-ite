@@ -128,7 +128,7 @@ async function saveMeal(plannedDate) {
 .app {
   font-family: system-ui, sans-serif;
   min-height: 100vh;
-  background: #f7f7f7;
+  color: #e0e0e0;
 }
 
 /* LOGIN LAYOUT */
@@ -163,12 +163,13 @@ async function saveMeal(plannedDate) {
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 8px;
-  background: #0070f3;
+  background: #2563eb;
   color: white;
   cursor: pointer;
+  transition: background 0.2s;
 }
 
 .logout:hover {
-  background: #005ac1;
+  background: #1d4ed8;
 }
 </style>
